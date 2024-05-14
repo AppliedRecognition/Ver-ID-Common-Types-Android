@@ -55,7 +55,24 @@ publishing {
             pom {
                 name.set("Ver-ID Common Types")
                 description.set("Types used by Ver-ID SDK modules")
-                url.set("")
+                url.set("https://github.com/AppliedRecognition/Ver-ID-Common-Types-Android")
+                licenses {
+                    license {
+                        name.set("Commercial")
+                    }
+                }
+                developers {
+                    developer {
+                        id.set("appliedrec")
+                        name.set("Applied Recognition")
+                        email.set("support@appliedrecognition.com")
+                    }
+                }
+                scm {
+                    connection.set("scm:git:git://github.com/AppliedRecognition/Ver-ID-Common-Types-Android.git")
+                    developerConnection.set("scm:git:ssh://github.com/AppliedRecognition/Ver-ID-Common-Types-Android.git")
+                    url.set("https://github.com/AppliedRecognition/Ver-ID-Common-Types-Android")
+                }
             }
         }
     }
