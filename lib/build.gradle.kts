@@ -59,6 +59,7 @@ publishing {
                 licenses {
                     license {
                         name.set("Commercial")
+                        url.set("https://raw.githubusercontent.com/AppliedRecognition/Ver-ID-Common-Types-Android/main/LICENCE.txt")
                     }
                 }
                 developers {
