@@ -1,0 +1,77 @@
+plugins {
+    id("com.android.library")
+    alias(libs.plugins.jetbrainsKotlinAndroid)
+    `maven-publish`
+    signing
+}
+
+android {
+    namespace = "com.appliedrec.verid.common"
+    compileSdk = 34
+
+    defaultConfig {
+        minSdk = 24
+        testOptions.targetSdk = 34
+
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            isMinifyEnabled = false
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
+        }
+    }
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}
+
+dependencies {
+
+    implementation(libs.androidx.core.ktx)
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.androidx.espresso.core)
+}
+
+publishing {
+    publications {
+        create<MavenPublication>("lib") {
+            groupId = "com.appliedrec.verid"
+            artifactId = "common"
+            version = "1.0.0"
+            afterEvaluate {
+                from(components["release"])
+            }
+
+            pom {
+                name.set("Ver-ID Common Types")
+                description.set("Types used by Ver-ID SDK modules")
+                url.set("")
+            }
+        }
+    }
+
+    repositories {
+        maven {
+            name = "MavenCentral"
+            url = uri("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/")
+            credentials {
+                username = project.findProperty("mavenCentralUsername") as String?
+                password = project.findProperty("mavenCentralPassword") as String?
+            }
+        }
+    }
+}
+
+signing {
+    sign(publishing.publications["lib"])
+}

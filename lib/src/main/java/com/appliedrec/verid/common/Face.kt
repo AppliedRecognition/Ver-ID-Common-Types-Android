@@ -1,0 +1,68 @@
+package com.appliedrec.verid.common
+
+import android.graphics.Matrix
+import android.graphics.PointF
+import android.graphics.RectF
+
+data class Face(val bounds: RectF, val angle: EulerAngle<Float>, val quality: Float, val landmarks: Array<PointF>) {
+
+    var faceAspectRatio: Float
+        get() = this.bounds.aspectRatio
+        set(aspectRatio) {
+            val faceBounds = this.bounds
+            val faceAspectRatio = faceBounds.width() / faceBounds.height()
+            if (faceAspectRatio > aspectRatio) {
+                val newHeight = faceBounds.width() / aspectRatio
+                faceBounds.top = faceBounds.centerY() - newHeight / 2
+                faceBounds.bottom = faceBounds.top + newHeight
+            } else {
+                val newWidth = faceBounds.height() * aspectRatio
+                faceBounds.left = faceBounds.centerX() - newWidth / 2
+                faceBounds.right = faceBounds.left + newWidth
+            }
+            this.bounds.left = faceBounds.left
+            this.bounds.top = faceBounds.top
+            this.bounds.right = faceBounds.right
+            this.bounds.bottom = faceBounds.bottom
+        }
+
+    fun applyingMatrix(matrix: Matrix): Face {
+        val faceBounds = RectF()
+        matrix.mapRect(faceBounds, this.bounds)
+        val landmarks = this.landmarks.flatMap { listOf(it.x, it.y) }.toFloatArray()
+        matrix.mapPoints(landmarks)
+        val landmarkPoints = landmarks.toList().chunked(2).map { PointF(it[0], it[1]) }.toTypedArray()
+        return Face(faceBounds, this.angle, this.quality, landmarkPoints)
+    }
+
+    fun applyMatrix(matrix: Matrix) {
+        val newFace = this.applyingMatrix(matrix)
+        this.bounds.left = newFace.bounds.left
+        this.bounds.top = newFace.bounds.top
+        this.bounds.right = newFace.bounds.right
+        this.bounds.bottom = newFace.bounds.bottom
+        for (i in this.landmarks.indices) {
+            this.landmarks[i] = newFace.landmarks[i]
+        }
+    }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is Face) return false
+
+        if (bounds != other.bounds) return false
+        if (angle != other.angle) return false
+        if (quality != other.quality) return false
+        if (!landmarks.contentEquals(other.landmarks)) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = bounds.hashCode()
+        result = 31 * result + angle.hashCode()
+        result = 31 * result + quality.hashCode()
+        result = 31 * result + landmarks.contentHashCode()
+        return result
+    }
+}
