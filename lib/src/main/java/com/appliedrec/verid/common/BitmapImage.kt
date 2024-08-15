@@ -10,7 +10,7 @@ class BitmapImage(private val bitmap: Bitmap): ImageConvertible {
             val data = ByteArray(bitmap.byteCount)
             val buffer: ByteBuffer = ByteBuffer.wrap(data)
             bitmap.copyPixelsToBuffer(buffer)
-            return Image(data, bitmap.width, bitmap.height, bitmap.rowBytes, ImageFormat.BGRA)
+            return Image(data, bitmap.width, bitmap.height, bitmap.rowBytes, ImageFormat.RGBA)
         } else if (bitmap.config == Bitmap.Config.ALPHA_8) {
             val data = ByteArray(bitmap.byteCount)
             val buffer: ByteBuffer = ByteBuffer.wrap(data)

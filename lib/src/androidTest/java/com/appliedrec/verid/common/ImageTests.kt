@@ -29,7 +29,7 @@ class ImageTests {
         bitmap.setPixel(1, 1, Color.WHITE)
         val bitmapImage = BitmapImage(bitmap)
         val image = bitmapImage.convertToImage()
-        assertEquals(ImageFormat.BGRA, image.format)
+        assertEquals(ImageFormat.RGBA, image.format)
         assertEquals(16, image.data.size)
         assertEquals(0xFF.toByte(), image.data[0])
         assertEquals(0x00.toByte(), image.data[1])
@@ -162,5 +162,24 @@ class ImageTests {
         assertEquals(Color.rgb(0xCC, 0xCC, 0xCC), bitmap.getPixel(1, 0))
         assertEquals(Color.rgb(0x66, 0x66, 0x66), bitmap.getPixel(0, 1))
         assertEquals(Color.BLACK, bitmap.getPixel(1, 1))
+    }
+
+    @Test
+    fun testConvertBitmapToImageAndBack() {
+        val bitmap = Bitmap.createBitmap(2, 2, Bitmap.Config.ARGB_8888)
+        bitmap.setPixel(0, 0, Color.RED)
+        bitmap.setPixel(1, 0, Color.GREEN)
+        bitmap.setPixel(0, 1, Color.BLUE)
+        bitmap.setPixel(1, 1, Color.WHITE)
+        val bitmapImage = BitmapImage(bitmap)
+        val image = bitmapImage.convertToImage()
+        val bitmap2 = image.convertToBitmap()
+        assertEquals(bitmap.width, bitmap2.width)
+        assertEquals(bitmap.height, bitmap2.height)
+        for (x in 0 until bitmap.width) {
+            for (y in 0 until bitmap.height) {
+                assertEquals(bitmap.getPixel(x, y), bitmap2.getPixel(x, y))
+            }
+        }
     }
 }
