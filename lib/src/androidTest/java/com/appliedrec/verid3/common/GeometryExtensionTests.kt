@@ -1,9 +1,9 @@
-package com.appliedrec.verid.commontypes
+package com.appliedrec.verid3.common
 
 import android.graphics.RectF
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.appliedrec.verid.common.horizontalMirrorMatrix
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.junit.runner.RunWith
 

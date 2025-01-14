@@ -1,4 +1,4 @@
-package com.appliedrec.verid.common
+package com.appliedrec.verid3.common
 
 enum class ImageFormat {
     /// RGB – red, gree, blue

@@ -1,4 +1,4 @@
-package com.appliedrec.verid.common
+package com.appliedrec.verid3.common
 
 import android.graphics.Matrix
 import android.graphics.RectF

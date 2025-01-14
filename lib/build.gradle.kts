@@ -45,7 +45,7 @@ dependencies {
 publishing {
     publications {
         create<MavenPublication>("lib") {
-            groupId = "com.appliedrec.verid"
+            groupId = "com.appliedrec.verid3"
             artifactId = "common"
             version = "1.0.0"
             afterEvaluate {
@@ -91,5 +91,6 @@ publishing {
 }
 
 signing {
+    useGpgCmd()
     sign(publishing.publications["lib"])
 }
