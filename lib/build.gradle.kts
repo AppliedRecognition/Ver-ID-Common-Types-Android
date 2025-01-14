@@ -87,6 +87,14 @@ publishing {
                 password = project.findProperty("mavenCentralPassword") as String?
             }
         }
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/AppliedRecognition/Ver-ID-Common-Types-Android")
+            credentials {
+                username = project.findProperty("gpr.user") as String?
+                password = project.findProperty("gpr.token") as String?
+            }
+        }
     }
 }
 
