@@ -1,3 +1,3 @@
 package com.appliedrec.verid3.common
 
-data class RecognizableFace(val face: Face, val template: FaceRecognitionTemplate)
+data class RecognizableFace<T>(val face: Face, val template: T)
