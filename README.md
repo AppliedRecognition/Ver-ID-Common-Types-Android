@@ -8,19 +8,15 @@ The purpose of this library is to make different parts of the Ver-ID SDK interop
 
 ## Essential types
 
-- [`Image`](https://github.com/AppliedRecognition/Ver-ID-Common-Types-Android/blob/main/lib/src/main/java/com/appliedrec/verid/common/Image.kt)<br>
-Abstraction of an image type. This type is used by face detection and face recognition. The `Image` implements the `ImageConvertible` interface.
-- [`ImageConvertible`](https://github.com/AppliedRecognition/Ver-ID-Common-Types-Android/blob/main/lib/src/main/java/com/appliedrec/verid/common/ImageConvertible.kt)<br>
-Interface that defines methods to convert to [Image](https://github.com/AppliedRecognition/Ver-ID-Common-Types-Android/blob/main/lib/src/main/java/com/appliedrec/verid/common/Image.kt) and to Android Bitmap
-- [`BitmapImage`](https://github.com/AppliedRecognition/Ver-ID-Common-Types-Android/blob/main/lib/src/main/java/com/appliedrec/verid/common/BitmapImage.kt)<br>
-`ImageConvertible` implementation that accepts Android Bitmap in its constructor.
-- [`Face`](https://github.com/AppliedRecognition/Ver-ID-Common-Types-Android/blob/main/lib/src/main/java/com/appliedrec/verid/common/Face.kt)<br>
+- [`Image`](https://github.com/AppliedRecognition/Ver-ID-Common-Types-Android/blob/main/lib/src/main/java/com/appliedrec/verid3/common/Image.kt)<br>
+Abstraction of an image type. This type is used by face detection and face recognition. The `Image` implements the `IImage` interface.
+- [`IImage`](https://github.com/AppliedRecognition/Ver-ID-Common-Types-Android/blob/main/lib/src/main/java/com/appliedrec/verid3/common/IImage.kt)<br>
+Image interface used in face detection and recognition
+- [`Face`](https://github.com/AppliedRecognition/Ver-ID-Common-Types-Android/blob/main/lib/src/main/java/com/appliedrec/verid3/common/Face.kt)<br>
 Represents a face detected in an `Image` by `FaceDetection`. This type is supplied along with `Image` to `FaceRecognition` to generate a `FaceRecognitionTemplate`.
-- [`FaceRecognitionTemplate`](https://github.com/AppliedRecognition/Ver-ID-Common-Types-Android/blob/main/lib/src/main/java/com/appliedrec/verid/common/FaceRecognitionTemplate.kt)<br>
-Template that is used by `FaceRecognition` for face comparisons.
-- [`RecognizableFace`](https://github.com/AppliedRecognition/Ver-ID-Common-Types-Android/blob/main/lib/src/main/java/com/appliedrec/verid/common/RecognizableFace.kt)<br>
-Contains `Face` and its corresponding `FaceRecognitionTemplate`.
-- [`FaceDetection`](https://github.com/AppliedRecognition/Ver-ID-Common-Types-Android/blob/main/lib/src/main/java/com/appliedrec/verid/common/FaceDetection.kt)<br>
+- [`RecognizableFace`](https://github.com/AppliedRecognition/Ver-ID-Common-Types-Android/blob/main/lib/src/main/java/com/appliedrec/verid3/common/RecognizableFace.kt)<br>
+Contains `Face` and its corresponding generic face template.
+- [`FaceDetection`](https://github.com/AppliedRecognition/Ver-ID-Common-Types-Android/blob/main/lib/src/main/java/com/appliedrec/verid3/common/FaceDetection.kt)<br>
 Face detection interface adopted by classes that detect faces in images.
-- [`FaceRecognition`](https://github.com/AppliedRecognition/Ver-ID-Common-Types-Android/blob/main/lib/src/main/java/com/appliedrec/verid/common/FaceRecognition.kt)<br>
-Face recognition interface adopted by classes that extract and compare `FaceRecognitionTemplate`s.
+- [`FaceRecognition`](https://github.com/AppliedRecognition/Ver-ID-Common-Types-Android/blob/main/lib/src/main/java/com/appliedrec/verid3/common/FaceRecognition.kt)<br>
+Face recognition interface adopted by classes that extract and compare face recognition templates.

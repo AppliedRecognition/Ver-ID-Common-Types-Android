@@ -59,7 +59,7 @@ publishing {
                 licenses {
                     license {
                         name.set("Commercial")
-                        url.set("https://raw.githubusercontent.com/AppliedRecognition/Ver-ID-Common-Types-Android/main/LICENCE.txt")
+                        url.set("https://raw.githubusercontent.com/AppliedRecognition/Ver-ID-Common-Types-Android/refs/heads/main/LICENCE.txt")
                     }
                 }
                 developers {
@@ -89,7 +89,7 @@ publishing {
         }
         maven {
             name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/AppliedRecognition/Ver-ID-3D-Android-Libraries")
+            url = uri("https://maven.pkg.github.com/AppliedRecognition/Ver-ID-Releases-Android")
             credentials {
                 username = project.findProperty("gpr.user") as String?
                 password = project.findProperty("gpr.token") as String?
