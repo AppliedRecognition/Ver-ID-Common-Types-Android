@@ -1,5 +1,5 @@
 plugins {
-    id("com.android.library")
+    alias(libs.plugins.androidLibrary)
     alias(libs.plugins.jetbrainsKotlinAndroid)
     `maven-publish`
     signing
@@ -44,9 +44,9 @@ dependencies {
 
 publishing {
     publications {
-        create<MavenPublication>("lib") {
-            groupId = "com.appliedrec.verid3"
-            artifactId = "common"
+        create<MavenPublication>("release") {
+            groupId = "com.appliedrec"
+            artifactId = "verid3-common"
             version = "1.0.0"
             afterEvaluate {
                 from(components["release"])
@@ -100,5 +100,5 @@ publishing {
 
 signing {
     useGpgCmd()
-    sign(publishing.publications["lib"])
+    sign(publishing.publications["release"])
 }
