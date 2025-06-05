@@ -1,6 +1,9 @@
+import org.jetbrains.dokka.gradle.DokkaTask
+
 plugins {
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.jetbrainsKotlinAndroid)
+    alias(libs.plugins.dokka)
     `maven-publish`
     signing
 }
@@ -101,4 +104,10 @@ publishing {
 signing {
     useGpgCmd()
     sign(publishing.publications["release"])
+}
+
+tasks.withType<DokkaTask>().configureEach {
+    moduleName.set("Ver-ID common types")
+    moduleVersion.set(project.version.toString())
+    outputDirectory.set(file("../docs"))
 }
