@@ -8,6 +8,8 @@ plugins {
     signing
 }
 
+version = "1.1.0"
+
 android {
     namespace = "com.appliedrec.verid.common"
     compileSdk = 34
@@ -50,7 +52,6 @@ publishing {
         create<MavenPublication>("release") {
             groupId = "com.appliedrec"
             artifactId = "verid3-common"
-            version = "1.0.0"
             afterEvaluate {
                 from(components["release"])
             }
