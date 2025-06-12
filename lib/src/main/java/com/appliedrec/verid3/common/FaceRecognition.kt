@@ -1,8 +1,10 @@
 package com.appliedrec.verid3.common
 
-interface FaceRecognition<T> {
+interface FaceRecognition<V: FaceTemplateVersion, D> {
 
-    suspend fun createFaceRecognitionTemplates(faces: Array<Face>, image: IImage): Array<T>
+    val version: V
 
-    suspend fun compareFaceRecognitionTemplates(faceRecognitionTemplates: Array<T>, template: T): FloatArray
+    suspend fun createFaceRecognitionTemplates(faces: Array<Face>, image: IImage): Array<FaceTemplate<V, D>>
+
+    suspend fun compareFaceRecognitionTemplates(faceRecognitionTemplates: Array<FaceTemplate<V,D>>, template: FaceTemplate<V,D>): FloatArray
 }
