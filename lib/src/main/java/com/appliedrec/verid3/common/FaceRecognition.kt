@@ -1,6 +1,6 @@
 package com.appliedrec.verid3.common
 
-interface FaceRecognition<V: FaceTemplateVersion, D> {
+interface FaceRecognition<V: FaceTemplateVersion, D> : SuspendingCloseable {
 
     val version: V
 
