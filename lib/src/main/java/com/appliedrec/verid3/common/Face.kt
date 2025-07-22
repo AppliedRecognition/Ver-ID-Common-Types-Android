@@ -12,7 +12,9 @@ data class Face(
     val leftEye: PointF,
     val rightEye: PointF,
     val noseTip: PointF? = null,
-    val mouthCentre: PointF? = null
+    val mouthCentre: PointF? = null,
+    val mouthLeftCorner: PointF? = null,
+    val mouthRightCorner: PointF? = null
 ) {
 
     companion object {}
@@ -51,6 +53,10 @@ data class Face(
         noseTip?.let { matrix.mapPoints(it) }
         val mouthCentre = this.mouthCentre?.let { floatArrayOf(it.x, it.y) }
         mouthCentre?.let { matrix.mapPoints(it) }
+        val mouthLeftCorner = this.mouthLeftCorner?.let { floatArrayOf(it.x, it.y) }
+        mouthLeftCorner?.let { matrix.mapPoints(it) }
+        val mouthRightCorner = this.mouthRightCorner?.let { floatArrayOf(it.x, it.y) }
+        mouthRightCorner?.let { matrix.mapPoints(it) }
         return Face(
             faceBounds,
             this.angle,
@@ -59,7 +65,9 @@ data class Face(
             PointF(leftEye[0], leftEye[1]),
             PointF(rightEye[0], rightEye[1]),
             noseTip?.let { PointF(it[0], it[1]) },
-            mouthCentre?.let { PointF(it[0], it[1]) }
+            mouthCentre?.let { PointF(it[0], it[1]) },
+            mouthLeftCorner?.let { PointF(it[0], it[1]) },
+            mouthRightCorner?.let { PointF(it[0], it[1]) }
         )
     }
 
@@ -88,6 +96,18 @@ data class Face(
                 thisMouthCentre.y = newMouthCentre.y
             }
         }
+        this.mouthLeftCorner?.let { thisMouthLeftCorner ->
+            newFace.mouthLeftCorner?.let { newMouthLeftCorner ->
+                thisMouthLeftCorner.x = newMouthLeftCorner.x
+                thisMouthLeftCorner.y = newMouthLeftCorner.y
+            }
+        }
+        this.mouthRightCorner?.let { thisMouthRightCorner ->
+            newFace.mouthRightCorner?.let { newMouthRightCorner ->
+                thisMouthRightCorner.x = newMouthRightCorner.x
+                thisMouthRightCorner.y = newMouthRightCorner.y
+            }
+        }
     }
 
     override fun equals(other: Any?): Boolean {
@@ -102,6 +122,8 @@ data class Face(
         if (rightEye != other.rightEye) return false
         if (noseTip != other.noseTip) return false
         if (mouthCentre != other.mouthCentre) return false
+        if (mouthLeftCorner != other.mouthLeftCorner) return false
+        if (mouthRightCorner != other.mouthRightCorner) return false
         return true
     }
 
@@ -114,6 +136,8 @@ data class Face(
         result = 31 * result + rightEye.hashCode()
         result = 31 * result + (noseTip?.hashCode() ?: 0)
         result = 31 * result + (mouthCentre?.hashCode() ?: 0)
+        result = 31 * result + (mouthLeftCorner?.hashCode() ?: 0)
+        result = 31 * result + (mouthRightCorner?.hashCode() ?: 0)
         return result
     }
 }
