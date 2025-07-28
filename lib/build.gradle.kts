@@ -9,7 +9,7 @@ plugins {
     signing
 }
 
-version = "2.1.0"
+version = "3.0.0"
 
 android {
     namespace = "com.appliedrec.verid.common"
