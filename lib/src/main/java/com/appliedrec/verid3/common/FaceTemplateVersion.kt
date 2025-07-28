@@ -1,5 +1,5 @@
 package com.appliedrec.verid3.common
 
-interface FaceTemplateVersion {
+interface FaceTemplateVersion<D> {
     val id: Int
 }
