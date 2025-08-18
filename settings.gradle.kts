@@ -22,5 +22,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "VerIDCommonTypes"
+rootProject.name = "Ver-ID Common"
 include(":lib")
+includeBuild("build-logic")

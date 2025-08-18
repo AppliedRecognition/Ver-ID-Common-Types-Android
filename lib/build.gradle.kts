@@ -5,7 +5,7 @@ plugins {
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.jetbrainsKotlinAndroid)
     alias(libs.plugins.dokka)
-    `maven-publish`
+    id("com.appliedrec.publish-conventions")
     signing
 }
 
@@ -61,7 +61,7 @@ publishing {
     publications {
         create<MavenPublication>("release") {
             groupId = "com.appliedrec"
-            artifactId = "verid3-common"
+            artifactId = "verid-common"
             afterEvaluate {
                 from(components["release"])
             }
@@ -88,25 +88,6 @@ publishing {
                     developerConnection.set("scm:git:ssh://github.com/AppliedRecognition/Ver-ID-Common-Types-Android.git")
                     url.set("https://github.com/AppliedRecognition/Ver-ID-Common-Types-Android")
                 }
-            }
-        }
-    }
-
-    repositories {
-        maven {
-            name = "MavenCentral"
-            url = uri("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/")
-            credentials {
-                username = project.findProperty("mavenCentralUsername") as String?
-                password = project.findProperty("mavenCentralPassword") as String?
-            }
-        }
-        maven {
-            name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/AppliedRecognition/Ver-ID-Releases-Android")
-            credentials {
-                username = project.findProperty("gpr.user") as String?
-                password = project.findProperty("gpr.token") as String?
             }
         }
     }
