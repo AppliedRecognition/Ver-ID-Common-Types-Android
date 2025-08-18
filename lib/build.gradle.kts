@@ -61,7 +61,7 @@ publishing {
     publications {
         create<MavenPublication>("release") {
             groupId = "com.appliedrec"
-            artifactId = "verid3-common"
+            artifactId = "verid-common"
             afterEvaluate {
                 from(components["release"])
             }
