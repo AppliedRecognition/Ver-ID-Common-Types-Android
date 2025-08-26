@@ -5,7 +5,7 @@ plugins {
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.jetbrainsKotlinAndroid)
     alias(libs.plugins.dokka)
-    id("com.appliedrec.publish-conventions")
+    alias(libs.plugins.vanniktechPublish)
     signing
 }
 
@@ -20,13 +20,6 @@ android {
         testOptions.targetSdk = 36
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-    }
-
-    publishing {
-        singleVariant("release") {
-            withSourcesJar()
-            withJavadocJar()
-        }
     }
 
     buildTypes {
@@ -57,45 +50,37 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
 }
 
-publishing {
-    publications {
-        create<MavenPublication>("release") {
-            groupId = "com.appliedrec"
-            artifactId = "verid-common"
-            afterEvaluate {
-                from(components["release"])
-            }
-
-            pom {
-                name.set("Ver-ID Common Types")
-                description.set("Types used by Ver-ID SDK modules")
-                url.set("https://github.com/AppliedRecognition/Ver-ID-Common-Types-Android")
-                licenses {
-                    license {
-                        name.set("Commercial")
-                        url.set("https://raw.githubusercontent.com/AppliedRecognition/Ver-ID-Common-Types-Android/refs/heads/main/LICENCE.txt")
-                    }
-                }
-                developers {
-                    developer {
-                        id.set("appliedrec")
-                        name.set("Applied Recognition")
-                        email.set("support@appliedrecognition.com")
-                    }
-                }
-                scm {
-                    connection.set("scm:git:git://github.com/AppliedRecognition/Ver-ID-Common-Types-Android.git")
-                    developerConnection.set("scm:git:ssh://github.com/AppliedRecognition/Ver-ID-Common-Types-Android.git")
-                    url.set("https://github.com/AppliedRecognition/Ver-ID-Common-Types-Android")
-                }
-            }
-        }
-    }
-}
-
 signing {
     useGpgCmd()
-    sign(publishing.publications["release"])
+    sign(publishing.publications)
+}
+
+mavenPublishing {
+    coordinates("com.appliedrec", "verid-common", "3.0.0")
+        pom {
+        name.set("Ver-ID Common Types")
+        description.set("Types used by Ver-ID SDK modules")
+        url.set("https://github.com/AppliedRecognition/Ver-ID-Common-Types-Android")
+        licenses {
+            license {
+                name.set("Commercial")
+                url.set("https://raw.githubusercontent.com/AppliedRecognition/Ver-ID-Common-Types-Android/refs/heads/main/LICENCE.txt")
+            }
+        }
+        developers {
+            developer {
+                id.set("appliedrec")
+                name.set("Applied Recognition")
+                email.set("support@appliedrecognition.com")
+            }
+        }
+        scm {
+            connection.set("scm:git:git://github.com/AppliedRecognition/Ver-ID-Common-Types-Android.git")
+            developerConnection.set("scm:git:ssh://github.com/AppliedRecognition/Ver-ID-Common-Types-Android.git")
+            url.set("https://github.com/AppliedRecognition/Ver-ID-Common-Types-Android")
+        }
+    }
+    publishToMavenCentral(automaticRelease = true)
 }
 
 tasks.withType<DokkaTask>().configureEach {
