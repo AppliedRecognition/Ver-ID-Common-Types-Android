@@ -56,7 +56,7 @@ signing {
 }
 
 mavenPublishing {
-    coordinates("com.appliedrec", "verid-common", "3.0.0")
+    coordinates("com.appliedrec", "verid-common")
     pom {
         name.set("Ver-ID Common Types")
         description.set("Types used by Ver-ID SDK modules")
