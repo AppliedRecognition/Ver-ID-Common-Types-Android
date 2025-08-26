@@ -9,7 +9,7 @@ plugins {
     signing
 }
 
-version = "3.0.0"
+version = "3.1.0"
 
 android {
     namespace = "com.appliedrec.verid.common"
@@ -57,7 +57,7 @@ signing {
 
 mavenPublishing {
     coordinates("com.appliedrec", "verid-common", "3.0.0")
-        pom {
+    pom {
         name.set("Ver-ID Common Types")
         description.set("Types used by Ver-ID SDK modules")
         url.set("https://github.com/AppliedRecognition/Ver-ID-Common-Types-Android")
