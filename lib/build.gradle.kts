@@ -1,4 +1,5 @@
-import org.jetbrains.dokka.gradle.DokkaTask
+import org.gradle.kotlin.dsl.withType
+import org.jetbrains.dokka.gradle.DokkaTaskPartial
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
@@ -83,8 +84,13 @@ mavenPublishing {
     publishToMavenCentral(automaticRelease = true)
 }
 
-tasks.withType<DokkaTask>().configureEach {
+dokka {
+    dokkaPublications.html {
+        outputDirectory.set(rootProject.file("docs"))
+    }
+}
+
+tasks.withType<DokkaTaskPartial>().configureEach {
     moduleName.set("Ver-ID common types")
     moduleVersion.set(project.version.toString())
-    outputDirectory.set(file("../docs"))
 }
