@@ -2,7 +2,7 @@ package com.appliedrec.verid3.common
 
 interface FacialAttributeDetection<T> {
     var confidenceThreshold: Float
-    suspend fun detect(face: Face, image: Image): FacialAttributeDetectionResult<T>?
+    suspend fun detect(face: Face, image: IImage): FacialAttributeDetectionResult<T>?
 }
 
 val <T> FacialAttributeDetection<T>.typeErased: AnyFacialAttributeDetector
