@@ -45,4 +45,18 @@ class FaceTests {
         assertEquals(420f, face.rightEye.x)
         assertEquals(300f, face.rightEye.y)
     }
+
+    @Test
+    fun testCalculateBoundsFromLandmarks() {
+        val bounds = RectF(20f, 30f, 300f, 300f)
+        val angle = EulerAngle<Float>(-1.2f, 3.3f, 0.1f)
+        val leftEye = PointF(110f, 150f)
+        val rightEye = PointF(210f, 150f)
+        val face = Face(bounds, angle, 10f, emptyArray(), leftEye, rightEye)
+        val normalized = face.normalizingBounds()
+        assertEquals(9.967087f, normalized.bounds.left, 0.01f)
+        assertEquals(-12.535645f, normalized.bounds.top, 0.01f)
+        assertEquals(310.0329f, normalized.bounds.right, 0.01f)
+        assertEquals(362.54663f, normalized.bounds.bottom, 0.01f)
+    }
 }
