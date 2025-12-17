@@ -3,6 +3,10 @@ package com.appliedrec.verid3.common
 import android.graphics.Matrix
 import android.graphics.PointF
 import android.graphics.RectF
+import java.lang.Math.pow
+import kotlin.math.cos
+import kotlin.math.pow
+import kotlin.math.sqrt
 
 data class Face(
     val bounds: RectF,
@@ -17,7 +21,20 @@ data class Face(
     val mouthRightCorner: PointF? = null
 ) {
 
-    companion object {}
+    companion object {
+        private fun calculateBounds(leftEye: PointF, rightEye: PointF, yaw: Float): RectF {
+            val eyeDistance = rightEye.distanceTo(leftEye)
+            val yawRadians = Math.toRadians(yaw.toDouble()).toFloat()
+            val correctedDistance = eyeDistance / cos(yawRadians)
+            val halfWidth = correctedDistance * 1.5f
+            val halfHeight = halfWidth * 1.25f
+            val centre = PointF(
+                leftEye.x + rightEye.x * 0.5f - leftEye.x * 0.5f,
+                leftEye.y + rightEye.y * 0.5f - leftEye.y * 0.5f + correctedDistance * 0.25f
+            )
+            return RectF(centre.x - halfWidth, centre.y - halfHeight, centre.x + halfWidth, centre.y + halfHeight)
+        }
+    }
 
     var faceAspectRatio: Float
         get() = this.bounds.aspectRatio
@@ -38,6 +55,29 @@ data class Face(
             this.bounds.right = faceBounds.right
             this.bounds.bottom = faceBounds.bottom
         }
+
+    constructor(
+        angle: EulerAngle<Float>,
+        quality: Float,
+        landmarks: Array<PointF>,
+        leftEye: PointF,
+        rightEye: PointF,
+        noseTip: PointF? = null,
+        mouthCentre: PointF? = null,
+        mouthLeftCorner: PointF? = null,
+        mouthRightCorner: PointF? = null
+    ) : this(
+        bounds = calculateBounds(leftEye, rightEye, angle.yaw),
+        angle = angle,
+        quality = quality,
+        landmarks = landmarks,
+        leftEye = leftEye,
+        rightEye = rightEye,
+        noseTip = noseTip,
+        mouthCentre = mouthCentre,
+        mouthLeftCorner = mouthLeftCorner,
+        mouthRightCorner = mouthRightCorner
+    )
 
     fun applyingMatrix(matrix: Matrix): Face {
         val faceBounds = RectF()
@@ -110,6 +150,10 @@ data class Face(
         }
     }
 
+    fun normalizingBounds(): Face {
+        return Face(angle, quality, landmarks, leftEye, rightEye, noseTip, mouthCentre, mouthLeftCorner, mouthRightCorner)
+    }
+
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is Face) return false
@@ -140,4 +184,8 @@ data class Face(
         result = 31 * result + (mouthRightCorner?.hashCode() ?: 0)
         return result
     }
+}
+
+private fun PointF.distanceTo(other: PointF): Float {
+    return sqrt((x - other.x).pow(2.0f) + (y - other.y).pow(2.0f))
 }
